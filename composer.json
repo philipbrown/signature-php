@@ -1,6 +1,6 @@
 {
     "name": "philipbrown/signplz",
-    "description": "Simple key/secret based authentication for apis",
+    "description": "Key / Secret authentication for your API",
     "keywords": ["api", "authentication"],
     "license": "MIT",
     "authors": [
