@@ -19,10 +19,10 @@ class SignplzTest extends TestCase {
     $request = $signplz->request('POST', '/api/thing', $params);
 
     // Sign the request
-    $auth_hash = $request->sign($token);
+    $auth_params = $request->sign($token);
 
     // Create query params
-    return array_merge($params, $auth_hash);
+    return array_merge($params, $auth_params);
   }
 
  /**

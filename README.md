@@ -37,10 +37,10 @@ $token = $signplz->token('my_key', 'my_secret');
 $request = $signplz->request('POST', '/api/thing', $params);
 
 // Sign the request
-$auth_hash = $request->sign($token);
+$auth_params = $request->sign($token);
 
 // Create query params
-$query_params = array_merge($params, $auth_hash);
+$query_params = array_merge($params, $auth_params);
 
 var_dump($query_params);
 

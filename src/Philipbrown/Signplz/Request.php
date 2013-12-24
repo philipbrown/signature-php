@@ -105,7 +105,7 @@ class Request {
   protected function parameterString()
   {
     // Create an array to build the http query
-    $hash = array();
+    $array = array();
 
     // Merge the auth and query params
     $params = array_merge($this->auth_params, $this->query_params);
@@ -113,15 +113,15 @@ class Request {
     // Convert keys to lowercase
     foreach($params as $k => $v)
     {
-      // Set each param on the hash array
-      $hash[strtolower($k)] = $v;
+      // Set each param on the array
+      $array[strtolower($k)] = $v;
     }
 
     // Remove the signature key
-    unset($hash['auth_signature']);
+    unset($array['auth_signature']);
 
     // Encode array to http string
-    return http_build_query($hash);
+    return http_build_query($array);
   }
 
   /**
