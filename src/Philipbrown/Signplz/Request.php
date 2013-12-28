@@ -27,7 +27,12 @@ class Request {
   /**
    * @var array
    */
-  protected $auth_params = array();
+  protected $auth_params = array(
+    'auth_version' => null,
+    'auth_key' => null,
+    'auth_timestamp' => null,
+    'auth_signature' => null
+  );
 
   /**
    * @var array
