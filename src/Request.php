@@ -1,6 +1,6 @@
-<?php namespace Philipbrown\Signplz;
+<?php namespace PhilipBrown\Signplz;
 
-use Philipbrown\Signplz\Exception\AuthenticationException;
+use PhilipBrown\Signplz\Exception\AuthenticationException;
 
 class Request {
 

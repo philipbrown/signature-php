@@ -1,4 +1,4 @@
-<?php namespace Philipbrown\Signplz;
+<?php namespace PhilipBrown\Signplz;
 
 class Token {
 

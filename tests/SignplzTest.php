@@ -1,8 +1,9 @@
-<?php namespace Philipbrown\Signplz\Test;
+<?php namespace PhilipBrown\Signplz;
 
-use Philipbrown\Signplz\Signplz;
+use PHPUnit_Framework_TestCase;
+use PhilipBrown\Signplz\Signplz;
 
-class SignplzTest extends TestCase {
+class SignplzTest extends PHPUnit_Framework_TestCase {
 
   public function makeRequest()
   {

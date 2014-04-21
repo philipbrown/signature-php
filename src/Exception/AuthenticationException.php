@@ -1,4 +1,4 @@
-<?php namespace Philipbrown\Signplz\Exception;
+<?php namespace PhilipBrown\Signplz\Exception;
 
 use Exception;
 
