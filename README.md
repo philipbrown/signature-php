@@ -6,8 +6,6 @@
 Signplz is a HMAC-SHA authentication implementation for PHP. It is basically just a port of [Signature](https://github.com/mloughran/signature) by [@mloughran](https://github.com/mloughran).
 
 ## Why Signplz?
-There are a few different options for authenticating an API. HTTP Basic Auth is a common choice but has [security issues](http://swaggadocio.com/post/48223179207/why-the-hell-does-your-api-still-use-http-basic-auth). Using OAuth can massively over-complicate things if all you really need is the ```client_credential``` grant.
-
 Signplz allows you to implement very simple key / secret authentication for your API using hashed signatures.
 
 ##Installation
@@ -67,7 +65,7 @@ $signplz = new Signplz;
 $token = $signplz->token('my_key', 'my_secret');
 
 // Create Request
-$request = $signplz->request('POST', '/api/thing', Input::all());
+$request = $signplz->request('POST', '/api/thing', $_POST);
 
 // Authenticated request
 try
