@@ -14,7 +14,7 @@ Add `philipbrown/signplz` as a requirement to `composer.json`:
 ```json
 {
   "require": {
-    "philipbrown/signplz": "dev-master"
+    "philipbrown/signplz": "1.*.*"
   }
 }
 ```
