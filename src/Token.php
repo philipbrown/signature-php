@@ -3,20 +3,25 @@
 class Token {
 
   /**
+   * The key
+   *
    * @var string
    */
   protected $key;
 
   /**
+   * The secret
+   *
    * @var secret
    */
   protected $secret;
 
   /**
-   * Construct
+   * Create a new instance of Token
    *
    * @param string $key
    * @param string $secret
+   * @return void
    */
   public function __construct($key, $secret)
   {
@@ -25,7 +30,7 @@ class Token {
   }
 
   /**
-   * Get Key
+   * Get the key
    *
    * @return string
    */
@@ -35,7 +40,7 @@ class Token {
   }
 
   /**
-   * Get Secret
+   * Get the secret
    *
    * @return string
    */

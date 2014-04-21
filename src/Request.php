@@ -5,46 +5,59 @@ use PhilipBrown\Signplz\Exception\AuthenticationException;
 class Request {
 
   /**
+   * The HTTP method
+   *
    * @var string
    */
   protected $method;
 
   /**
+   * The API path
+   *
    * @var string
    */
   protected $path;
 
   /**
+   * The data to send
+   *
    * @var array
    */
   protected $params;
 
   /**
+   * The version of Signplz
+   *
    * @var string
    */
   protected $version = '1.0';
 
   /**
+   * The default auth parameters
+   *
    * @var array
    */
   protected $auth_params = array(
-    'auth_version' => null,
-    'auth_key' => null,
-    'auth_timestamp' => null,
-    'auth_signature' => null
+    'auth_version'    => null,
+    'auth_key'        => null,
+    'auth_timestamp'  => null,
+    'auth_signature'  => null
   );
 
   /**
+   * The query params
+   *
    * @var array
    */
   protected $query_params = array();
 
   /**
-   * Construct
+   * Create a new instance of Request
    *
    * @param string $method
    * @param string $path
    * @param array $params
+   * @return void
    */
   public function __construct($method, $path, array $params)
   {
@@ -63,9 +76,9 @@ class Request {
   }
 
   /**
-   * Sign
+   * Sign the request with a token
    *
-   * @param Token $token
+   * @param PhilipBrown\SignPlz\Token $token
    * @return array
    */
   public function sign(Token $token)
@@ -82,9 +95,9 @@ class Request {
   }
 
   /**
-   * Signature
+   * Get the hashed signature
    *
-   * @param Token $token
+   * @param PhilipBrown\Signplz\Token $token
    * @return string
    */
   protected function signature(Token $token)
@@ -130,9 +143,9 @@ class Request {
   }
 
   /**
-   * Authenticate
+   * Authenticate the request
    *
-   * @param Token $token
+   * @param PhilipBrown\Signplz\Token $token
    * @param int $timestampGrace
    */
   public function authenticate(Token $token, $timestampGrace = 600)
@@ -149,8 +162,9 @@ class Request {
   /**
    * Authenticate By Token
    *
-   * @param Token $token
+   * @param PhilipBrown\SignPlz\Token $token
    * @param int $timestampGrace
+   * @return bool
    */
   protected function authenticateByToken(Token $token, $timestampGrace)
   {
@@ -175,7 +189,7 @@ class Request {
   /**
    * Validate Version
    *
-   * @return true
+   * @return bool
    */
   protected function validateVersion()
   {
@@ -190,7 +204,8 @@ class Request {
   /**
    * Validate Timestamp
    *
-   * @return true
+   * @param int $timestampGrace
+   * @return bool
    */
   protected function validateTimestamp($timestampGrace)
   {
@@ -212,7 +227,8 @@ class Request {
   /**
    * Validate Signature
    *
-   * @return true
+   * @param PhilipBrown\Signplz\Token $token
+   * @return bool
    */
   protected function validateSignature(Token $token)
   {

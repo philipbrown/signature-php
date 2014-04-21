@@ -20,6 +20,7 @@ class Signplz {
    * @param string $method
    * @param string $path
    * @param array $params
+   * @return PhilipBrown\Signplz\Request
    */
   public function request($method, $path, array $params)
   {
