@@ -102,7 +102,7 @@ class Request {
    */
   protected function signature(Token $token)
   {
-    return hash_hmac('sha256', $token->getSecret(), $this->stringToSign());
+    return hash_hmac('sha256', $this->stringToSign(), $token->getSecret());
   }
 
   /**
