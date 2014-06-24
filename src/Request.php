@@ -137,6 +137,9 @@ class Request {
 
     // Remove the signature key
     unset($array['auth_signature']);
+    
+    // Sort array
+    ksort($array);
 
     // Encode array to http string
     return http_build_query($array);
