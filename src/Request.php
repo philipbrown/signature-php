@@ -142,7 +142,7 @@ class Request {
     ksort($array);
 
     // Encode array to http string
-    return http_build_query($array);
+    return urldecode(http_build_query($array));
   }
 
   /**
