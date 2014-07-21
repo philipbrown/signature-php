@@ -81,7 +81,7 @@ catch(AuthenticationException $e)
 ## Credits
 This library was massively inspired by:
 
-[Why the hell does your API still us HTTP Basic Auth?](http://swaggadocio.com/post/48223179207/why-the-hell-does-your-api-still-use-http-basic-auth) by [@stevegraham](https://github.com/stevegraham).
+[Why the hell does your API still use HTTP Basic Auth?](http://swaggadocio.com/post/48223179207/why-the-hell-does-your-api-still-use-http-basic-auth) by [@stevegraham](https://github.com/stevegraham).
 
 [Signature](https://github.com/mloughran/signature) ruby gem by [@mloughran](https://github.com/mloughran).
 
