@@ -1,7 +1,7 @@
 {
-    "name": "philipbrown/signplz",
-    "description": "Key / Secret authentication for your API",
-    "keywords": ["api", "authentication"],
+    "name": "philipbrown/signature-php",
+    "description": "HMAC-SHA authentication",
+    "keywords": ["HMAC-SHA", "authentication"],
     "license": "MIT",
     "authors": [
         {
@@ -11,13 +11,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "PhilipBrown\\Signplz\\": "src"
+            "PhilipBrown\\Signature\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhilipBrown\\Signature\\Tests\\": "tests"
         }
     },
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.4",
+        "nesbot/Carbon": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "~4.0"
     }
 }
