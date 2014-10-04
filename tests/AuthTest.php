@@ -46,6 +46,16 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function should_throw_exception_on_missing_signature()
+    {
+        $this->setExpectedException('PhilipBrown\Signature\SignatureException');
+
+        $auth = new Auth($this->token, 'POST', 'users', []);
+
+        $auth = $auth->signature();
+    }
+
+    /** @test */
     public function should_authenticate_successfully()
     {
         $this->assertTrue($this->auth->attempt());
