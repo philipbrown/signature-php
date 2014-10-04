@@ -8,7 +8,7 @@ class SignatureTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12));
+        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $token           = new Token('key', 'secret');
         $this->auth      = ['name' => 'Philip Brown'];

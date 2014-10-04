@@ -15,7 +15,7 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12));
+        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->guard = new CheckTimestamp;
         $this->signature = new Signature(new Token('key', 'secret'), 'POST', 'users', []);
