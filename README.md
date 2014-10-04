@@ -18,6 +18,9 @@ Add `philipbrown/signature-php` as a requirement to `composer.json`:
 ```
 Update your packages with `composer update`.
 
+## What is HMAC-SHA authentication?
+HMAC-SHA authentication allows you to implement very simple key / secret authentication for your API using hashed signatures.
+
 ## Making a request
 ```php
 // The data you want to send to the API:
@@ -26,7 +29,7 @@ $data = ['name' => 'Philip Brown'];
 // Create a new Token using your `key` and `secret`:
 $token = new Token('key', 'secret');
 
-// Create a new signature and pass the HTTP method, the endpoint and the data you want to send:
+// Create a new signature:
 $signature = new Signature($token, 'POST', 'users', $data);
 
 // Sign the signature
@@ -34,6 +37,10 @@ $auth = $signature->sign();
 
 // Merge the `$auth` and the `$data`:
 $data = array_merge($data, $auth);
+
+// You can now send `$data` to the API
+$client = // new HTTP client
+$client->post('users', $data);
 ```
 
 ## Authenticating a response
@@ -49,8 +56,8 @@ try {
     $auth->attempt();
 }
 
-// Catch exceptions and return and authentication error HTTP response code
+// Return a 4xx HTTP response if an `Exception` is thrown
 catch (SignatureException $e) {
-    // return 4XX HTTP response
+    // return 4xx HTTP response
 }
 ```
