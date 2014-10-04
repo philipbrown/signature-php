@@ -23,6 +23,9 @@ HMAC-SHA authentication allows you to implement very simple key / secret authent
 
 ## Making a request
 ```php
+use PhilipBrown\Signature\Token;
+use PhilipBrown\Signature\Signature;
+
 // The data you want to send to the API:
 $data = ['name' => 'Philip Brown'];
 
@@ -45,6 +48,10 @@ $client->post('users', $data);
 
 ## Authenticating a response
 ```php
+use PhilipBrown\Signature\Auth;
+use PhilipBrown\Signature\Token;
+use PhilipBrown\Signature\SignatureException;
+
 // Create a new Token using the client's `key` and `secret`:
 $token = new Token('key', 'secret');
 
