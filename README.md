@@ -37,7 +37,7 @@ $data = array_merge($data, $auth);
 ```
 
 ## Authenticating a response
-```
+```php
 // Create a new Token using the client's `key` and `secret`:
 $token = new Token('key', 'secret');
 
@@ -49,6 +49,7 @@ try {
     $auth->attempt();
 }
 
+// Catch exceptions and return and authentication error HTTP response code
 catch (SignatureException $e) {
     // return 4XX HTTP response
 }
