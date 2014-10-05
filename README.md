@@ -24,47 +24,32 @@ HMAC-SHA authentication allows you to implement very simple key / secret authent
 ## Making a request
 ```php
 use PhilipBrown\Signature\Token;
-use PhilipBrown\Signature\Signature;
+use PhilipBrown\Signature\Request;
 
-// The data you want to send to the API:
-$data = ['name' => 'Philip Brown'];
+$data    = ['name' => 'Philip Brown'];
+$token   = new Token('abc123', 'qwerty');
+$request = new Request('POST', 'users', $data);
 
-// Create a new Token using your `key` and `secret`:
-$token = new Token('key', 'secret');
+$auth = $request->sign($token);
 
-// Create a new signature:
-$signature = new Signature($token, 'POST', 'users', $data);
+$http->post('users', array_merge($auth, $data));
 
-// Sign the signature
-$auth = $signature->sign();
-
-// Merge the `$auth` and the `$data`:
-$data = array_merge($data, $auth);
-
-// You can now send `$data` to the API
-$client = // new HTTP client
-$client->post('users', $data);
 ```
 
 ## Authenticating a response
 ```php
 use PhilipBrown\Signature\Auth;
 use PhilipBrown\Signature\Token;
-use PhilipBrown\Signature\SignatureException;
+use PhilipBrown\Signature\Exceptions\SignatureException;
 
-// Create a new Token using the client's `key` and `secret`:
-$token = new Token('key', 'secret');
+$auth  = new Auth('POST', 'users', $_POST);
+$token = new Token('abc123', 'qwerty');
 
-// Create a new Auth and pass in the Token, HTTP method, endpoint and request data:
-$auth = new Auth($token, 'POST', 'users', $_POST);
-
-// Attempt to authenticate the request:
 try {
-    $auth->attempt();
+    $auth->attempt($token);
 }
 
-// Return a 4xx HTTP response if an `Exception` is thrown
 catch (SignatureException $e) {
-    // return 4xx HTTP response
+    // return 4xx
 }
 ```
