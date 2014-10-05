@@ -1,4 +1,4 @@
-<?php namespace PhilipBrown\Signature;
+<?php namespace PhilipBrown\Signature\Exceptions;
 
 class SignatureException extends \Exception
 {

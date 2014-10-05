@@ -9,8 +9,8 @@ interface Guard
      * satisfy the rule of the guard
      *
      * @param array $auth
-     * @param Signature $signature
+     * @param array $signature
      * @return bool
      */
-    public function check(array $auth, Signature $signature);
+    public function check(array $auth, array $signature);
 }

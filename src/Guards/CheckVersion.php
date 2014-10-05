@@ -1,7 +1,7 @@
 <?php namespace PhilipBrown\Signature\Guards;
 
 use PhilipBrown\Signature\Signature;
-use PhilipBrown\Signature\SignatureException;
+use PhilipBrown\Signature\Exceptions\SignatureVersionException;
 
 class CheckVersion implements Guard
 {
@@ -10,17 +10,17 @@ class CheckVersion implements Guard
      * satisfy the rule of the guard
      *
      * @param array $auth
-     * @param Signature $signature
+     * @param array $signature
      * @return bool
      */
-    public function check(array $auth, Signature $signature)
+    public function check(array $auth, array $signature)
     {
-        if (! isset($auth['version'])) {
-            throw new SignatureException('The version has not been set');
+        if (! isset($auth['auth_version'])) {
+            throw new SignatureVersionException('The version has not been set');
         }
 
-        if ($auth['version'] !== $signature->auth()['version']) {
-            throw new SignatureException('The signature version is not correct');
+        if ($auth['auth_version'] !== $signature['auth_version']) {
+            throw new SignatureVersionException('The signature version is not correct');
         }
 
         return true;

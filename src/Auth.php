@@ -1,27 +1,16 @@
 <?php namespace PhilipBrown\Signature;
 
-use Carbon\Carbon;
 use PhilipBrown\Signature\Guards\CheckKey;
-use PhilipBrown\Signature\Guards\CheckHash;
 use PhilipBrown\Signature\Guards\CheckVersion;
 use PhilipBrown\Signature\Guards\CheckTimestamp;
+use PhilipBrown\Signature\Guards\CheckSignature;
 
 class Auth
 {
     /**
      * @var string
      */
-    private $key;
-
-    /**
-     * @var string
-     */
-    private $secret;
-
-    /**
-     * @var string
-     */
-    private $timestamp;
+    private $method;
 
     /**
      * @var string
@@ -29,52 +18,55 @@ class Auth
     private $uri;
 
     /**
-     * @var string
+     * @var array
      */
-    private $method;
+    private $params;
 
     /**
      * @var array
      */
-    private $payload;
+    private $auth = [
+        'auth_key',
+        'auth_version',
+        'auth_timestamp',
+        'auth_signature'
+    ];
 
     /**
      * Create a new Auth instance
      *
-     * @param Token $token
      * @param string $method
-     * @param string $uri
-     * @param array $payload
+     * @param strign $uri
+     * @param array $params
      * @return void
      */
-    public function __construct(Token $token, $method, $uri, $payload)
+    public function __construct($method, $uri, array $params)
     {
-        $this->uri       = $uri;
-        $this->method    = $method;
-        $this->payload   = $payload;
-        $this->key       = $token->key();
-        $this->secret    = $token->secret();
-        $this->timestamp = Carbon::now()->timestamp;
+        $this->method = strtoupper($method);
+        $this->uri    = $uri;
+        $this->params = $params;
 
         $this->guards = [
-            new CheckKey,
             new CheckVersion,
+            new CheckKey,
             new CheckTimestamp,
-            new CheckHash
+            new CheckSignature
         ];
     }
 
     /**
-     * Attempt to authenticate the request
+     * Attempt to authenticate a request
      *
+     * @param Token $token
      * @return bool
      */
-    public function attempt()
+    public function attempt(Token $token)
     {
-        $auth = $this->signature();
-        $body = $this->body();
+        $auth = $this->getAuthParams();
+        $body = $this->getBodyParams();
 
-        $signature = new Signature(new Token($this->key, $this->secret), $this->method, $this->uri, $body);
+        $request   = new Request($this->method, $this->uri, $body);
+        $signature = $request->sign($token);
 
         foreach ($this->guards as $guard) {
             $guard->check($auth, $signature);
@@ -84,26 +76,22 @@ class Auth
     }
 
     /**
-     * Get the auth parameters
+     * Get the auth params
      *
      * @return array
      */
-    public function signature()
+    private function getAuthParams()
     {
-        if (isset($this->payload['auth'])) {
-            return $this->payload['auth'];
-        }
-
-        throw new SignatureException('The request does not contain authentication details');
+        return array_intersect_key($this->params, array_flip($this->auth));
     }
 
     /**
-     * Get the body
+     * Get the body params
      *
      * @return array
      */
-    public function body()
+    private function getBodyParams()
     {
-        return array_diff_key($this->payload, array_flip(['auth']));
+        return array_diff_key($this->params, array_flip($this->auth));
     }
 }

@@ -1,8 +1,7 @@
 <?php namespace PhilipBrown\Signature\Guards;
 
 use Carbon\Carbon;
-use PhilipBrown\Signature\Signature;
-use PhilipBrown\Signature\SignatureException;
+use PhilipBrown\Signature\Exceptions\SignatureTimestampException;
 
 class CheckTimestamp implements Guard
 {
@@ -27,17 +26,17 @@ class CheckTimestamp implements Guard
      * satisfy the rule of the guard
      *
      * @param array $auth
-     * @param Signature $signature
+     * @param array $signature
      * @return bool
      */
-    public function check(array $auth, Signature $signature)
+    public function check(array $auth, array $signature)
     {
-        if (! isset($auth['timestamp'])) {
-            throw new SignatureException('The timestamp has not been set');
+        if (! isset($auth['auth_timestamp'])) {
+            throw new SignatureTimestampException('The timestamp has not been set');
         }
 
-        if (($auth['timestamp'] - Carbon::now()->timestamp) >= $this->grace) {
-            throw new SignatureException('The timestamp is invalid');
+        if (($auth['auth_timestamp'] - Carbon::now()->timestamp) >= $this->grace) {
+            throw new SignatureTimestampException('The timestamp is invalid');
         }
 
         return true;
