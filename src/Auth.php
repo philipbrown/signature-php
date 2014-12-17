@@ -66,7 +66,8 @@ class Auth
         $body = $this->getBodyParams();
 
         $request   = new Request($this->method, $this->uri, $body);
-        $signature = $request->sign($token);
+        $auth_timestamp = isset( $this->params['auth_timestamp'] ) ? $this->params['auth_timestamp'] : null;
+        $signature = $request->sign($token, $auth_timestamp);
 
         foreach ($this->guards as $guard) {
             $guard->check($auth, $signature);
