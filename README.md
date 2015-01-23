@@ -42,8 +42,8 @@ use PhilipBrown\Signature\Auth;
 use PhilipBrown\Signature\Token;
 use PhilipBrown\Signature\Exceptions\SignatureException;
 
-$auth  = new Auth('POST', 'users', $_POST);
 $token = new Token('abc123', 'qwerty');
+$auth  = new Auth($token, 'POST', 'users', $_POST);
 
 try {
     $auth->attempt($token);
