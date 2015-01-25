@@ -8,15 +8,9 @@
 
 ## Installation
 Add `philipbrown/signature-php` as a requirement to `composer.json`:
-
-```json
-{
-  "require": {
-    "philipbrown/signature-php": "~2.0"
-  }
-}
+```bash
+$ composer require philipbrown/signature-php
 ```
-Update your packages with `composer update`.
 
 ## What is HMAC-SHA authentication?
 HMAC-SHA authentication allows you to implement very simple key / secret authentication for your API using hashed signatures.
