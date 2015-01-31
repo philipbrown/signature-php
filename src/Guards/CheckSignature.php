@@ -19,7 +19,7 @@ class CheckSignature implements Guard
         }
 
         if ($auth['auth_signature'] !== $signature['auth_signature']) {
-            throw new SignatureSignatureException('The signature is not invalid');
+            throw new SignatureSignatureException('The signature is not valid');
         }
 
         return true;
