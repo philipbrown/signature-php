@@ -42,14 +42,15 @@ class Request
      * Sign the Request with a Token
      *
      * @param Token $token
+     * @param integer $auth_timestamp
      * @return array
      */
-    public function sign(Token $token)
+    public function sign(Token $token, $auth_timestamp = null)
     {
         $auth = [
             'auth_version'   => $this->version,
             'auth_key'       => $token->key(),
-            'auth_timestamp' => Carbon::now()->timestamp
+            'auth_timestamp' => isset($auth_timestamp) ? $auth_timestamp : Carbon::now()->timestamp
         ];
 
         $payload = $this->payload($auth, $this->params);
