@@ -15,7 +15,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->params = [
-            'auth_version'   => '3.0',
+            'auth_version'   => '3.0.2',
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
             'auth_signature' => '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765',

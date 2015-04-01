@@ -23,7 +23,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->auth = [
-            'auth_version'   => '3.0',
+            'auth_version'   => '3.0.2',
             'auth_key'       => 'abc123',
             'auth_timestamp' => Carbon::now()->timestamp
         ];
@@ -56,7 +56,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $auth = $this->request->sign($this->token);
 
-        $this->assertEquals('3.0', $auth['auth_version']);
+        $this->assertEquals('3.0.2', $auth['auth_version']);
         $this->assertEquals('abc123', $auth['auth_key']);
         $this->assertEquals('1412506800', $auth['auth_timestamp']);
         $this->assertEquals(
