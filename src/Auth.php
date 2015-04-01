@@ -38,20 +38,15 @@ class Auth
      * @param string $method
      * @param strign $uri
      * @param array $params
+     * @param array $guards
      * @return void
      */
-    public function __construct($method, $uri, array $params)
+    public function __construct($method, $uri, array $params, array $guards)
     {
         $this->method = strtoupper($method);
         $this->uri    = $uri;
         $this->params = $params;
-
-        $this->guards = [
-            new CheckVersion,
-            new CheckKey,
-            new CheckTimestamp,
-            new CheckSignature
-        ];
+        $this->guards = $guards;
     }
 
     /**

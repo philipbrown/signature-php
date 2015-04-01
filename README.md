@@ -34,9 +34,18 @@ $http->post('users', array_merge($auth, $data));
 ```php
 use PhilipBrown\Signature\Auth;
 use PhilipBrown\Signature\Token;
+use PhilipBrown\Signature\Guards\CheckKey;
+use PhilipBrown\Signature\Guards\CheckVersion;
+use PhilipBrown\Signature\Guards\CheckTimestamp;
+use PhilipBrown\Signature\Guards\CheckSignature;
 use PhilipBrown\Signature\Exceptions\SignatureException;
 
-$auth  = new Auth('POST', 'users', $_POST);
+$auth  = new Auth('POST', 'users', $_POST, [
+	new CheckKey,
+	new CheckVersion,
+	new CheckTimestamp,
+	new CheckSignature
+]);
 $token = new Token('abc123', 'qwerty');
 
 try {
