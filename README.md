@@ -46,6 +46,7 @@ $auth  = new Auth('POST', 'users', $_POST, [
 	new CheckTimestamp,
 	new CheckSignature
 ]);
+
 $token = new Token('abc123', 'qwerty');
 
 try {
