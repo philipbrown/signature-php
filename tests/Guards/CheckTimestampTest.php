@@ -34,6 +34,16 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function should_throw_exception_on_future_expired_timestamp()
+    {
+        $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureTimestampException');
+
+        $timestamp = Carbon::now()->subHour()->timestamp;
+
+        $this->guard->check(['auth_timestamp' => $timestamp], []);
+    }
+
+    /** @test */
     public function should_return_true_with_valid_timestamp()
     {
         $timestamp = Carbon::now()->timestamp;
