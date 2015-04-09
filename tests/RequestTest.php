@@ -35,20 +35,25 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function should_create_payload()
     {
-        $payload = $this->request->payload($this->params);
+        $payload = $this->request->payload($this->auth, $this->params);
 
-        $this->assertEquals('Philip Brown', $payload['name']);
+        $this->assertEquals([
+            'auth_key'       => 'abc123',
+            'auth_timestamp' => '1412506800',
+            'auth_version'   => '3.0.2',
+            'name'           => 'Philip Brown'
+        ], $payload);
     }
 
     /** @test */
     public function should_create_signature()
     {
-        $payload = $this->request->payload($this->params);
+        $payload = $this->request->payload($this->auth, $this->params);
 
         $signature = $this->request->signature($payload, 'POST', 'users', 'qwerty');
 
         $this->assertEquals(
-            '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765', $signature);
+            '3743d35b97f6ee0859d63e78f13fa493225a5edcac8fb0536c6fcfba7ff540f5', $signature);
     }
 
     /** @test */
@@ -60,7 +65,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('abc123', $auth['auth_key']);
         $this->assertEquals('1412506800', $auth['auth_timestamp']);
         $this->assertEquals(
-            '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765', $auth['auth_signature']);
+            '3743d35b97f6ee0859d63e78f13fa493225a5edcac8fb0536c6fcfba7ff540f5', $auth['auth_signature']);
     }
 }
 

@@ -18,7 +18,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
             'auth_version'   => '3.0.2',
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
-            'auth_signature' => '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765',
+            'auth_signature' => '3743d35b97f6ee0859d63e78f13fa493225a5edcac8fb0536c6fcfba7ff540f5',
             'name' => 'Philip Brown'
         ];
 

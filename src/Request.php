@@ -52,7 +52,7 @@ class Request
             'auth_timestamp' => Carbon::now()->timestamp
         ];
 
-        $payload = $this->payload($this->params);
+        $payload = $this->payload($auth, $this->params);
 
         $signature = $this->signature($payload, $this->method, $this->uri, $token->secret());
 
@@ -67,13 +67,14 @@ class Request
      * @param array $params
      * @return array
      */
-    public function payload(array $params)
+    public function payload(array $auth, array $params)
     {
-        array_change_key_case($params, CASE_LOWER);
+        $payload = array_merge($auth, $params);
+        array_change_key_case($payload, CASE_LOWER);
 
-        ksort($params);
+        ksort($payload);
 
-        return $params;
+        return $payload;
     }
 
     /**
