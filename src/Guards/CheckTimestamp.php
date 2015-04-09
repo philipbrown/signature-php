@@ -35,7 +35,7 @@ class CheckTimestamp implements Guard
             throw new SignatureTimestampException('The timestamp has not been set');
         }
 
-        if (($auth['auth_timestamp'] - Carbon::now()->timestamp) >= $this->grace) {
+        if (abs($auth['auth_timestamp'] - Carbon::now()->timestamp) >= $this->grace) {
             throw new SignatureTimestampException('The timestamp is invalid');
         }
 
