@@ -23,7 +23,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->auth = [
-            'auth_version'   => '3.0.2',
+            'auth_version'   => '3.0.4',
             'auth_key'       => 'abc123',
             'auth_timestamp' => Carbon::now()->timestamp
         ];
@@ -40,7 +40,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
-            'auth_version'   => '3.0.2',
+            'auth_version'   => '3.0.4',
             'name'           => 'Philip Brown'
         ], $payload);
     }
@@ -53,7 +53,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $signature = $this->request->signature($payload, 'POST', 'users', 'qwerty');
 
         $this->assertEquals(
-            '3743d35b97f6ee0859d63e78f13fa493225a5edcac8fb0536c6fcfba7ff540f5', $signature);
+            '58df9a58bc27f8722481c8b97233855cc5bb0c42e2c141e6858c0130edbfa8bd', $signature);
     }
 
     /** @test */
@@ -61,11 +61,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $auth = $this->request->sign($this->token);
 
-        $this->assertEquals('3.0.2', $auth['auth_version']);
+        $this->assertEquals('3.0.4', $auth['auth_version']);
         $this->assertEquals('abc123', $auth['auth_key']);
         $this->assertEquals('1412506800', $auth['auth_timestamp']);
         $this->assertEquals(
-            '3743d35b97f6ee0859d63e78f13fa493225a5edcac8fb0536c6fcfba7ff540f5', $auth['auth_signature']);
+            '58df9a58bc27f8722481c8b97233855cc5bb0c42e2c141e6858c0130edbfa8bd', $auth['auth_signature']);
     }
 }
 

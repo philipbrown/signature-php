@@ -17,7 +17,7 @@ class CheckVersionTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureVersionException');
 
-        $this->guard->check([], ['auth_version' => '3.0.2']);
+        $this->guard->check([], ['auth_version' => '3.0.4']);
     }
 
     /** @test */
@@ -25,12 +25,12 @@ class CheckVersionTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureVersionException');
 
-        $this->guard->check(['auth_version' => '1.1'], ['auth_version' => '3.0.2']);
+        $this->guard->check(['auth_version' => '1.1'], ['auth_version' => '3.0.4']);
     }
 
     /** @test */
     public function should_return_true_with_valid_version_number()
     {
-        $this->assertTrue($this->guard->check(['auth_version' => '3.0.2'], ['auth_version' => '3.0.2']));
+        $this->assertTrue($this->guard->check(['auth_version' => '3.0.4'], ['auth_version' => '3.0.4']));
     }
 }
