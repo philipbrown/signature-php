@@ -25,17 +25,24 @@ class Request
     private $params;
 
     /**
+     * @var integer
+     */
+    private $timestamp;
+
+    /**
      * Create a new Request
      *
      * @param string $method
      * @param string $uri
      * @param array $params
+     * @param integer $timestamp
      */
-    public function __construct($method, $uri, array $params)
+    public function __construct($method, $uri, array $params, $timestamp = null)
     {
-        $this->method = strtoupper($method);
-        $this->uri    = $uri;
-        $this->params = $params;
+        $this->method    = strtoupper($method);
+        $this->uri       = $uri;
+        $this->params    = $params;
+        $this->timestamp = $timestamp ?: Carbon::now()->timestamp;
     }
 
     /**
@@ -49,7 +56,7 @@ class Request
         $auth = [
             'auth_version'   => $this->version,
             'auth_key'       => $token->key(),
-            'auth_timestamp' => Carbon::now()->timestamp
+            'auth_timestamp' => $this->timestamp,
         ];
 
         $payload = $this->payload($auth, $this->params);
@@ -64,6 +71,7 @@ class Request
     /**
      * Create the payload
      *
+     * @param array $auth
      * @param array $params
      * @return array
      */

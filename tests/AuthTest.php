@@ -12,8 +12,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
-
         $this->params = [
             'auth_version'   => '3.0.2',
             'auth_key'       => 'abc123',
@@ -58,6 +56,8 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureTimestampException');
 
+        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
+
         $this->params['auth_timestamp'] = Carbon::now()->addHour()->timestamp;
 
         $auth = new Auth('POST', 'users', $this->params, [
@@ -71,6 +71,8 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     public function should_throw_exception_on_invalid_signature()
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureSignatureException');
+
+        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->params['auth_signature'] = '';
 
