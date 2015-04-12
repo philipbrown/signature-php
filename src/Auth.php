@@ -60,7 +60,7 @@ class Auth
         $auth = $this->getAuthParams();
         $body = $this->getBodyParams();
 
-        $request   = new Request($this->method, $this->uri, $body);
+        $request   = new Request($this->method, $this->uri, $body, $auth['auth_timestamp']);
         $signature = $request->sign($token);
 
         foreach ($this->guards as $guard) {

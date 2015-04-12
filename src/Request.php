@@ -7,7 +7,7 @@ class Request
     /**
      * @var string
      */
-    private $version = '3.0.2';
+    private $version = '3.0.4';
 
     /**
      * @var string
@@ -25,17 +25,24 @@ class Request
     private $params;
 
     /**
+     * @var integer
+     */
+    private $timestamp;
+
+    /**
      * Create a new Request
      *
      * @param string $method
      * @param string $uri
      * @param array $params
+     * @param integer $timestamp
      */
-    public function __construct($method, $uri, array $params)
+    public function __construct($method, $uri, array $params, $timestamp = null)
     {
-        $this->method = strtoupper($method);
-        $this->uri    = $uri;
-        $this->params = $params;
+        $this->method    = strtoupper($method);
+        $this->uri       = $uri;
+        $this->params    = $params;
+        $this->timestamp = $timestamp ?: Carbon::now()->timestamp;
     }
 
     /**
@@ -49,10 +56,10 @@ class Request
         $auth = [
             'auth_version'   => $this->version,
             'auth_key'       => $token->key(),
-            'auth_timestamp' => Carbon::now()->timestamp
+            'auth_timestamp' => $this->timestamp,
         ];
 
-        $payload = $this->payload($this->params);
+        $payload = $this->payload($auth, $this->params);
 
         $signature = $this->signature($payload, $this->method, $this->uri, $token->secret());
 
@@ -64,16 +71,18 @@ class Request
     /**
      * Create the payload
      *
+     * @param array $auth
      * @param array $params
      * @return array
      */
-    public function payload(array $params)
+    public function payload(array $auth, array $params)
     {
-        array_change_key_case($params, CASE_LOWER);
+        $payload = array_merge($auth, $params);
+        array_change_key_case($payload, CASE_LOWER);
 
-        ksort($params);
+        ksort($payload);
 
-        return $params;
+        return $payload;
     }
 
     /**

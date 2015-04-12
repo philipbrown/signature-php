@@ -23,7 +23,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->auth = [
-            'auth_version'   => '3.0.2',
+            'auth_version'   => '3.0.4',
             'auth_key'       => 'abc123',
             'auth_timestamp' => Carbon::now()->timestamp
         ];
@@ -35,20 +35,25 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function should_create_payload()
     {
-        $payload = $this->request->payload($this->params);
+        $payload = $this->request->payload($this->auth, $this->params);
 
-        $this->assertEquals('Philip Brown', $payload['name']);
+        $this->assertEquals([
+            'auth_key'       => 'abc123',
+            'auth_timestamp' => '1412506800',
+            'auth_version'   => '3.0.4',
+            'name'           => 'Philip Brown'
+        ], $payload);
     }
 
     /** @test */
     public function should_create_signature()
     {
-        $payload = $this->request->payload($this->params);
+        $payload = $this->request->payload($this->auth, $this->params);
 
         $signature = $this->request->signature($payload, 'POST', 'users', 'qwerty');
 
         $this->assertEquals(
-            '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765', $signature);
+            '58df9a58bc27f8722481c8b97233855cc5bb0c42e2c141e6858c0130edbfa8bd', $signature);
     }
 
     /** @test */
@@ -56,11 +61,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $auth = $this->request->sign($this->token);
 
-        $this->assertEquals('3.0.2', $auth['auth_version']);
+        $this->assertEquals('3.0.4', $auth['auth_version']);
         $this->assertEquals('abc123', $auth['auth_key']);
         $this->assertEquals('1412506800', $auth['auth_timestamp']);
         $this->assertEquals(
-            '48e36e5dbe7f187f17b11eb632f6334be13c43a65f25c9281a42a61265884765', $auth['auth_signature']);
+            '58df9a58bc27f8722481c8b97233855cc5bb0c42e2c141e6858c0130edbfa8bd', $auth['auth_signature']);
     }
 }
 
