@@ -13,10 +13,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->params = [
-            'auth_version'   => '3.0.4',
+            'auth_version'   => '4.0.0',
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
-            'auth_signature' => '58df9a58bc27f8722481c8b97233855cc5bb0c42e2c141e6858c0130edbfa8bd',
+            'auth_signature' => '3e70b51f4c119d3cad5f575014df2c14df6c2a3337eda3b67587ef881d04a491',
             'name' => 'Philip Brown'
         ];
 
