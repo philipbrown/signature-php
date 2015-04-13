@@ -75,7 +75,7 @@ class Request
      * @param array $params
      * @return array
      */
-    public function payload(array $auth, array $params)
+    private function payload(array $auth, array $params)
     {
         $payload = array_merge($auth, $params);
         array_change_key_case($payload, CASE_LOWER);
@@ -94,7 +94,7 @@ class Request
      * @param string $secret
      * @return string
      */
-    public function signature(array $payload, $method, $uri, $secret)
+    private function signature(array $payload, $method, $uri, $secret)
     {
         $payload = urldecode(http_build_query($payload));
 

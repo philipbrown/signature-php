@@ -33,30 +33,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function should_create_payload()
-    {
-        $payload = $this->request->payload($this->auth, $this->params);
-
-        $this->assertEquals([
-            'auth_key'       => 'abc123',
-            'auth_timestamp' => '1412506800',
-            'auth_version'   => '4.0.0',
-            'name'           => 'Philip Brown'
-        ], $payload);
-    }
-
-    /** @test */
-    public function should_create_signature()
-    {
-        $payload = $this->request->payload($this->auth, $this->params);
-
-        $signature = $this->request->signature($payload, 'POST', 'users', 'qwerty');
-
-        $this->assertEquals(
-            '3e70b51f4c119d3cad5f575014df2c14df6c2a3337eda3b67587ef881d04a491', $signature);
-    }
-
-    /** @test */
     public function should_sign_request()
     {
         $auth = $this->request->sign($this->token);
