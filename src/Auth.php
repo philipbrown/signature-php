@@ -1,10 +1,5 @@
 <?php namespace PhilipBrown\Signature;
 
-use PhilipBrown\Signature\Guards\CheckKey;
-use PhilipBrown\Signature\Guards\CheckVersion;
-use PhilipBrown\Signature\Guards\CheckTimestamp;
-use PhilipBrown\Signature\Guards\CheckSignature;
-
 class Auth
 {
     /**
@@ -36,7 +31,7 @@ class Auth
      * Create a new Auth instance
      *
      * @param string $method
-     * @param strign $uri
+     * @param string $uri
      * @param array $params
      * @param array $guards
      * @return void
