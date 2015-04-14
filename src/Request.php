@@ -7,7 +7,7 @@ class Request
     /**
      * @var string
      */
-    private $version = '4.0.0';
+    private $version = '5.0.0';
 
     /**
      * @var string
