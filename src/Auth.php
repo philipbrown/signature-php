@@ -36,7 +36,7 @@ class Auth
      * Create a new Auth instance
      *
      * @param string $method
-     * @param strign $uri
+     * @param string $uri
      * @param array $params
      * @param array $guards
      * @return void
