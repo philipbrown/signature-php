@@ -1,10 +1,5 @@
 <?php namespace PhilipBrown\Signature;
 
-use PhilipBrown\Signature\Guards\CheckKey;
-use PhilipBrown\Signature\Guards\CheckVersion;
-use PhilipBrown\Signature\Guards\CheckTimestamp;
-use PhilipBrown\Signature\Guards\CheckSignature;
-
 class Auth
 {
     /**
