@@ -17,7 +17,7 @@ class CheckKeyTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureKeyException');
 
-        $this->guard->check([], ['auth_key' => 'abc123']);
+        $this->guard->check([], ['auth_key' => 'abc123'], 'auth_');
     }
 
     /** @test */
@@ -25,14 +25,14 @@ class CheckKeyTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureKeyException');
 
-        $this->guard->check(['auth_key' => 'edf456'], ['auth_key' => 'abc123']);
+        $this->guard->check(['auth_key' => 'edf456'], ['auth_key' => 'abc123'], 'auth_');
     }
 
     /** @test */
     public function should_return_true_with_valid_key()
     {
         $this->assertTrue($this->guard->check(
-            ['auth_key' => 'abc123'], ['auth_key' => 'abc123'])
-        );
+            ['auth_key' => 'abc123'], ['auth_key' => 'abc123'], 'auth_'
+        ));
     }
 }

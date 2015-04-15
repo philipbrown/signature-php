@@ -29,6 +29,8 @@ class Request
      */
     private $timestamp;
 
+    const PREFIX = 'auth_';
+
     /**
      * Create a new Request
      *
@@ -48,22 +50,23 @@ class Request
     /**
      * Sign the Request with a Token
      *
-     * @param Token $token
+     * @param Token  $token
+     * @param string $prefix
      * @return array
      */
-    public function sign(Token $token)
+    public function sign(Token $token, $prefix = self::PREFIX)
     {
         $auth = [
-            'auth_version'   => $this->version,
-            'auth_key'       => $token->key(),
-            'auth_timestamp' => $this->timestamp,
+            $prefix . 'version'   => $this->version,
+            $prefix . 'key'       => $token->key(),
+            $prefix . 'timestamp' => $this->timestamp,
         ];
 
         $payload = $this->payload($auth, $this->params);
 
         $signature = $this->signature($payload, $this->method, $this->uri, $token->secret());
 
-        $auth['auth_signature'] = $signature;
+        $auth[$prefix . 'signature'] = $signature;
 
         return $auth;
     }

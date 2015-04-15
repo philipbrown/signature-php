@@ -5,21 +5,24 @@ use PhilipBrown\Signature\Exceptions\SignatureVersionException;
 
 class CheckVersion implements Guard
 {
+
     /**
      * Check to ensure the auth parameters
      * satisfy the rule of the guard
      *
-     * @param array $auth
-     * @param array $signature
+     * @param array  $auth
+     * @param array  $signature
+     * @param string $prefix
+     * @throws SignatureVersionException
      * @return bool
      */
-    public function check(array $auth, array $signature)
+    public function check(array $auth, array $signature, $prefix)
     {
-        if (! isset($auth['auth_version'])) {
+        if (! isset($auth[$prefix . 'version'])) {
             throw new SignatureVersionException('The version has not been set');
         }
 
-        if ($auth['auth_version'] !== $signature['auth_version']) {
+        if ($auth[$prefix . 'version'] !== $signature[$prefix . 'version']) {
             throw new SignatureVersionException('The signature version is not correct');
         }
 

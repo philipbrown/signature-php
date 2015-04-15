@@ -17,7 +17,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
             'auth_signature' => 'bafd7d0804142e81c5114f8a3fc23f82e324c5ad427e955d08d684ab6dbf20c6',
-            'name' => 'Philip Brown'
+            'name'           => 'Philip Brown'
         ];
 
         $this->token = new Token('abc123', 'qwerty');
