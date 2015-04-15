@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.1.0
+
+* Add the ability to use your own prefix for instead of `auth_*`. The default is still `auth_*` so no BC breaks are introduced.
+
 ## 5.0.0
 
 * `Request::payload()` and `Request::signature()` methods are now private. The `Request::sign()` method should be used instead.

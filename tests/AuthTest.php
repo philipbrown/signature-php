@@ -13,10 +13,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->params = [
-            'auth_version'   => '5.0.0',
+            'auth_version'   => '5.1.0',
             'auth_key'       => 'abc123',
             'auth_timestamp' => '1412506800',
-            'auth_signature' => 'bafd7d0804142e81c5114f8a3fc23f82e324c5ad427e955d08d684ab6dbf20c6',
+            'auth_signature' => '1144e9c47773e38d4436cf48bf32a9968a3f41c829e1a70129d690461b4abb0f',
             'name'           => 'Philip Brown'
         ];
 
@@ -84,7 +84,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function should_return_true_on_successfull_authentication()
+    public function should_return_true_on_successful_authentication()
     {
         $auth = new Auth('POST', 'users', $this->params, [
             new CheckKey,

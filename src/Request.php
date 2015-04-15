@@ -4,10 +4,8 @@ use Carbon\Carbon;
 
 class Request
 {
-    /**
-     * @var string
-     */
-    private $version = '5.0.0';
+
+    const VERSION = '5.1.0';
 
     /**
      * @var string
@@ -57,7 +55,7 @@ class Request
     public function sign(Token $token, $prefix = self::PREFIX)
     {
         $auth = [
-            $prefix . 'version'   => $this->version,
+            $prefix . 'version'   => self::VERSION,
             $prefix . 'key'       => $token->key(),
             $prefix . 'timestamp' => $this->timestamp,
         ];
