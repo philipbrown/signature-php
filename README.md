@@ -57,3 +57,17 @@ catch (SignatureException $e) {
     // return 4xx
 }
 ```
+
+## Changing the default HTTP request prefix
+By default, this package uses `auth_*` in requests. You can change this behaviour when signing and and authenticating requests:
+```php
+// default, the HTTP request uses auth_version, auth_key, auth_timestamp and auth_signature
+$request->sign($token);
+// the HTTP request now uses x-version, x-key, x-timestamp and x-signature
+$request->sign($token, 'x-');
+```
+
+If you changed the default, you will need to authenticate the request accordingly:
+```php
+$auth->attempt($token, 'x-');
+```

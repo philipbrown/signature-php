@@ -21,10 +21,10 @@ class Auth
      * @var array
      */
     private $auth = [
-        'auth_key',
-        'auth_version',
-        'auth_timestamp',
-        'auth_signature'
+        'key',
+        'version',
+        'timestamp',
+        'signature'
     ];
 
     /**
@@ -47,19 +47,20 @@ class Auth
     /**
      * Attempt to authenticate a request
      *
-     * @param Token $token
+     * @param Token  $token
+     * @param string $prefix
      * @return bool
      */
-    public function attempt(Token $token)
+    public function attempt(Token $token, $prefix = Request::PREFIX)
     {
-        $auth = $this->getAuthParams();
-        $body = $this->getBodyParams();
+        $auth = $this->getAuthParams($prefix);
+        $body = $this->getBodyParams($prefix);
 
-        $request   = new Request($this->method, $this->uri, $body, $auth['auth_timestamp']);
-        $signature = $request->sign($token);
+        $request   = new Request($this->method, $this->uri, $body, $auth[$prefix . 'timestamp']);
+        $signature = $request->sign($token, $prefix);
 
         foreach ($this->guards as $guard) {
-            $guard->check($auth, $signature);
+            $guard->check($auth, $signature, $prefix);
         }
 
         return true;
@@ -68,20 +69,35 @@ class Auth
     /**
      * Get the auth params
      *
+     * @param $prefix
      * @return array
      */
-    private function getAuthParams()
+    private function getAuthParams($prefix)
     {
-        return array_intersect_key($this->params, array_flip($this->auth));
+        return array_intersect_key($this->params, array_flip($this->addPrefix($this->auth, $prefix)));
     }
 
     /**
      * Get the body params
      *
+     * @param $prefix
      * @return array
      */
-    private function getBodyParams()
+    private function getBodyParams($prefix)
     {
-        return array_diff_key($this->params, array_flip($this->auth));
+        return array_diff_key($this->params, array_flip($this->addPrefix($this->auth, $prefix)));
+    }
+
+    /**
+     * @param array $auth
+     * @param       $prefix
+     *
+     * @return array
+     */
+    private function addPrefix(array $auth, $prefix)
+    {
+        return array_map(function ($item) use ($prefix) {
+            return $prefix . $item;
+        }, $auth);
     }
 }

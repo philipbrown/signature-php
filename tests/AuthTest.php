@@ -78,7 +78,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function should_return_true_on_successfull_authentication()
+    public function should_return_true_on_successful_authentication()
     {
         $auth = new Auth('POST', 'users', $this->params, [
             new CheckKey,
@@ -88,5 +88,26 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertTrue($auth->attempt($this->token));
+    }
+
+    /** @test */
+    public function should_return_true_on_successful_attempt_with_custom_prefix()
+    {
+        $params  = ['name' => 'Philip Brown'];
+        $token   = new Token('abc123', 'qwerty');
+        $request = new Request('POST', 'users', $params);
+        $signed  = $request->sign($token, 'x-');
+        $params  = array_merge($params, $signed);
+
+        $token = new Token('abc123', 'qwerty');
+
+        $auth = new Auth('POST', 'users', $params, [
+            new CheckKey,
+            new CheckVersion,
+            new CheckTimestamp,
+            new CheckSignature
+        ]);
+
+        $this->assertTrue($auth->attempt($token, 'x-'));
     }
 }

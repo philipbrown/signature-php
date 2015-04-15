@@ -17,7 +17,7 @@ class CheckSignatureTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureSignatureException');
 
-        $this->guard->check([], []);
+        $this->guard->check([], [], 'auth_');
     }
 
     /** @test */
@@ -25,7 +25,7 @@ class CheckSignatureTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureException');
 
-        $this->guard->check(['auth_signature' => 'hello'], ['auth_signature' => 'world']);
+        $this->guard->check(['auth_signature' => 'hello'], ['auth_signature' => 'world'], 'auth_');
     }
 
     /** @test */
@@ -33,6 +33,6 @@ class CheckSignatureTest extends \PHPUnit_Framework_TestCase
     {
         $hash = '74386c24552f7a044bba201b46bd713d40050b9c411d8e7d0aeb98e7e3ed6e83';
 
-        $this->assertTrue($this->guard->check(['auth_signature' => $hash], ['auth_signature' => $hash]));
+        $this->assertTrue($this->guard->check(['auth_signature' => $hash], ['auth_signature' => $hash], 'auth_'));
     }
 }

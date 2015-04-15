@@ -24,17 +24,19 @@ class CheckTimestamp implements Guard
      * Check to ensure the auth parameters
      * satisfy the rule of the guard
      *
-     * @param array $auth
-     * @param array $signature
+     * @param array  $auth
+     * @param array  $signature
+     * @param string $prefix
+     * @throws SignatureTimestampException
      * @return bool
      */
-    public function check(array $auth, array $signature)
+    public function check(array $auth, array $signature, $prefix)
     {
-        if (! isset($auth['auth_timestamp'])) {
+        if (! isset($auth[$prefix . 'timestamp'])) {
             throw new SignatureTimestampException('The timestamp has not been set');
         }
 
-        if (abs($auth['auth_timestamp'] - time()) >= $this->grace) {
+        if (abs($auth[$prefix . 'timestamp'] - time()) >= $this->grace) {
             throw new SignatureTimestampException('The timestamp is invalid');
         }
 
