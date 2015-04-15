@@ -1,7 +1,5 @@
 <?php namespace PhilipBrown\Signature;
 
-use Carbon\Carbon;
-
 class Request
 {
     /**
@@ -42,7 +40,7 @@ class Request
         $this->method    = strtoupper($method);
         $this->uri       = $uri;
         $this->params    = $params;
-        $this->timestamp = $timestamp ?: Carbon::now()->timestamp;
+        $this->timestamp = $timestamp ?: time();
     }
 
     /**

@@ -28,7 +28,7 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureTimestampException');
 
-        $timestamp = Carbon::now()->addHour()->timestamp;
+        $timestamp = time() + 60 * 60;
 
         $this->guard->check(['auth_timestamp' => $timestamp], []);
     }
@@ -38,7 +38,7 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureTimestampException');
 
-        $timestamp = Carbon::now()->subHour()->timestamp;
+        $timestamp = time() - 60 * 60;
 
         $this->guard->check(['auth_timestamp' => $timestamp], []);
     }
@@ -46,7 +46,7 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function should_return_true_with_valid_timestamp()
     {
-        $timestamp = Carbon::now()->timestamp;
+        $timestamp = time();
 
         $this->guard->check(['auth_timestamp' => $timestamp], []);
     }
