@@ -6,9 +6,6 @@ use PhilipBrown\Signature\Request;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array */
-    private $auth;
-
     /** @var Token */
     private $token;
 
@@ -35,5 +32,16 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'bafd7d0804142e81c5114f8a3fc23f82e324c5ad427e955d08d684ab6dbf20c6', $auth['auth_signature']);
     }
-}
 
+    /** @test */
+    public function should_accept_custom_prefix()
+    {
+        $auth = $this->request->sign($this->token, 'x-');
+
+        $this->assertEquals('5.0.0', $auth['x-version']);
+        $this->assertEquals('abc123', $auth['x-key']);
+        $this->assertEquals('1412506800', $auth['x-timestamp']);
+        $this->assertEquals(
+            '4fed31bd83f9ddec343a19d4bde4d0db168715a8c3e663ebda253a12e4e75e6f', $auth['x-signature']);
+    }
+}
