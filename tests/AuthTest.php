@@ -95,4 +95,27 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($auth->attempt($this->token));
     }
+
+    /** @test */
+    public function should_return_true_on_successful_attempt_with_custom_prefix()
+    {
+        $params = [
+            'x-version'   => '5.1.0',
+            'x-key'       => 'abc123',
+            'x-timestamp' => '1412506800',
+            'x-signature' => 'efb40418fdab26f11fead90f3d0e469ae5a21f3dd915613f6a76798124811f7b',
+            'name'        => 'Philip Brown'
+        ];
+
+        $token = new Token('abc123', 'qwerty');
+
+        $auth = new Auth('POST', 'users', $params, [
+            new CheckKey,
+            new CheckVersion,
+            new CheckTimestamp,
+            new CheckSignature
+        ]);
+
+        $this->assertTrue($auth->attempt($token, 'x-'));
+    }
 }
