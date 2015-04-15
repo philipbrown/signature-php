@@ -1,8 +1,8 @@
 <?php namespace PhilipBrown\Signature\Tests;
 
-use Carbon\Carbon;
 use PhilipBrown\Signature\Auth;
 use PhilipBrown\Signature\Token;
+use PhilipBrown\Signature\Request;
 use PhilipBrown\Signature\Guards\CheckKey;
 use PhilipBrown\Signature\Guards\CheckVersion;
 use PhilipBrown\Signature\Guards\CheckSignature;
@@ -12,15 +12,13 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->params = [
-            'auth_version'   => '5.0.0',
-            'auth_key'       => 'abc123',
-            'auth_timestamp' => '1412506800',
-            'auth_signature' => 'bafd7d0804142e81c5114f8a3fc23f82e324c5ad427e955d08d684ab6dbf20c6',
-            'name' => 'Philip Brown'
-        ];
-
+        $params = ['name' => 'Philip Brown'];
         $this->token = new Token('abc123', 'qwerty');
+
+        $request = new Request('POST', 'users', $params);
+        $signed = $request->sign($this->token);
+
+        $this->params = array_merge($params, $signed);
     }
 
     /** @test */
@@ -56,9 +54,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureTimestampException');
 
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
-
-        $this->params['auth_timestamp'] = Carbon::now()->addHour()->timestamp;
+        $this->params['auth_timestamp'] = time() + 60 * 60;
 
         $auth = new Auth('POST', 'users', $this->params, [
             new CheckTimestamp
@@ -71,8 +67,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     public function should_throw_exception_on_invalid_signature()
     {
         $this->setExpectedException('PhilipBrown\Signature\Exceptions\SignatureSignatureException');
-
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
 
         $this->params['auth_signature'] = '';
 
