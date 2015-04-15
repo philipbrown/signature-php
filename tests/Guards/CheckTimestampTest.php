@@ -1,6 +1,5 @@
 <?php namespace PhilipBrown\Signature\Tests\Guards;
 
-use Carbon\Carbon;
 use PhilipBrown\Signature\Guards\CheckTimestamp;
 
 class CheckTimestampTest extends \PHPUnit_Framework_TestCase
@@ -10,8 +9,6 @@ class CheckTimestampTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Carbon::setTestNow(Carbon::create(2014, 10, 5, 12, 0, 0, 'Europe/London'));
-
         $this->guard = new CheckTimestamp;
     }
 

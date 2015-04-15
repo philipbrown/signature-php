@@ -1,6 +1,5 @@
 <?php namespace PhilipBrown\Signature\Tests;
 
-use Carbon\Carbon;
 use PhilipBrown\Signature\Token;
 use PhilipBrown\Signature\Request;
 
