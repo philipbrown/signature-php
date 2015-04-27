@@ -77,7 +77,7 @@ class Request
     private function payload(array $auth, array $params)
     {
         $payload = array_merge($auth, $params);
-        array_change_key_case($payload, CASE_LOWER);
+        $payload = array_change_key_case($payload, CASE_LOWER);
 
         ksort($payload);
 
