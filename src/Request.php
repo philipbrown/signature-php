@@ -3,7 +3,7 @@
 class Request
 {
 
-    const VERSION = '5.1.0';
+    const VERSION = '5.1.2';
 
     /**
      * @var string

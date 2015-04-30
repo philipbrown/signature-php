@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 5.1.2
+* Set the value of `array_change_key_case`
+
 ## 5.1.0
 
 * Add the ability to use your own prefix for instead of `auth_*`. The default is still `auth_*` so no BC breaks are introduced.
