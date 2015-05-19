@@ -35,7 +35,7 @@ class Request
      * @param array $params
      * @param integer $timestamp
      */
-    public function __construct($method, $uri, array $params, $timestamp = null)
+    public function __construct($method, $uri, array $params = [], $timestamp = null)
     {
         $this->method    = strtoupper($method);
         $this->uri       = $uri;

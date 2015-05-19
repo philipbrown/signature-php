@@ -1,7 +1,9 @@
 # CHANGELOG
 
 ## 5.1.2
+
 * Set the value of `array_change_key_case`
+* Set default value for request params to empty array
 
 ## 5.1.0
 
