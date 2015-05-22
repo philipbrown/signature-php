@@ -2,8 +2,9 @@
 
 class Request
 {
-
     const VERSION = '5.1.2';
+
+    const PREFIX = 'auth_';
 
     /**
      * @var string
@@ -24,8 +25,6 @@ class Request
      * @var integer
      */
     private $timestamp;
-
-    const PREFIX = 'auth_';
 
     /**
      * Create a new Request
