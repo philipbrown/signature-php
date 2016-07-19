@@ -2,7 +2,7 @@
 
 class Auth
 {
-    protected $request = Request::class;
+    protected $request = "PhilipBrown\Signature\Request";
 
     /**
      * @var string
