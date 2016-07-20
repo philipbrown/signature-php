@@ -4,5 +4,5 @@ use PhilipBrown\Signature\Auth;
 
 class CustomAuth extends Auth
 {
-    protected $request = CustomRequest::class;
+    protected $request = "PhilipBrown\Signature\Tests\Mocks\CustomRequest";
 }
