@@ -21,7 +21,7 @@ class CheckSignature implements Guard
             throw new SignatureSignatureException('The signature has not been set');
         }
 
-        if ($auth[$prefix . 'signature'] !== $signature[$prefix . 'signature']) {
+        if (hash_equals($auth[$prefix . 'signature'], $signature[$prefix . 'signature'])) {
             throw new SignatureSignatureException('The signature is not valid');
         }
 
