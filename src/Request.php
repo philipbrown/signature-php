@@ -52,7 +52,7 @@ class Request
     public function sign(Token $token, $prefix = self::PREFIX)
     {
         $auth = [
-            $prefix . 'version'   => self::VERSION,
+            $prefix . 'version'   => static::VERSION,
             $prefix . 'key'       => $token->key(),
             $prefix . 'timestamp' => $this->timestamp,
         ];

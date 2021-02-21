@@ -7,6 +7,8 @@ use PhilipBrown\Signature\Guards\CheckKey;
 use PhilipBrown\Signature\Guards\CheckVersion;
 use PhilipBrown\Signature\Guards\CheckSignature;
 use PhilipBrown\Signature\Guards\CheckTimestamp;
+use PhilipBrown\Signature\Tests\Mocks\CustomRequest;
+use PhilipBrown\Signature\Tests\Mocks\CustomAuth;
 
 class AuthTest extends \PHPUnit_Framework_TestCase
 {
@@ -109,5 +111,24 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertTrue($auth->attempt($token, 'x-'));
+    }
+
+    /** @test */
+    public function should_return_true_on_successful_authentication_using_custom_auth()
+    {
+        $params  = ['name' => 'Philip Brown'];
+        $token   = new Token('abc123', 'qwerty');
+        $request = new CustomRequest('POST', 'users', $params);
+        $signed  = $request->sign($token);
+        $params  = array_merge($params, $signed);
+
+        $auth = new CustomAuth('POST', 'users', $params, [
+            new CheckKey,
+            new CheckVersion,
+            new CheckTimestamp,
+            new CheckSignature
+        ]);
+
+        $this->assertTrue($auth->attempt($token));
     }
 }

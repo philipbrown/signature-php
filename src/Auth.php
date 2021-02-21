@@ -2,6 +2,8 @@
 
 class Auth
 {
+    protected $request = "PhilipBrown\Signature\Request";
+
     /**
      * @var string
      */
@@ -56,7 +58,8 @@ class Auth
         $auth = $this->getAuthParams($prefix);
         $body = $this->getBodyParams($prefix);
 
-        $request   = new Request($this->method, $this->uri, $body, $auth[$prefix . 'timestamp']);
+        $request_class = $this->request;
+        $request   = new $request_class($this->method, $this->uri, $body, $auth[$prefix . 'timestamp']);
         $signature = $request->sign($token, $prefix);
 
         foreach ($this->guards as $guard) {
